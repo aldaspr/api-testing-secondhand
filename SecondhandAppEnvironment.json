@@ -1,0 +1,69 @@
+{
+	"id": "236f0dd1-8cd9-49e4-8a1f-948834a15d08",
+	"name": "Secondhand App",
+	"values": [
+		{
+			"key": "base.url",
+			"value": "https://market-final-project.binaracademy.org",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "setEmailSeller",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "setEmailBuyer",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "id_seller",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "id_buyer",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "access_token_seller",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "access_token_buyer",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "id_product",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "id_order",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "",
+			"value": "",
+			"type": "default",
+			"enabled": false
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2023-12-04T08:03:25.597Z",
+	"_postman_exported_using": "Postman/10.20.7"
+}

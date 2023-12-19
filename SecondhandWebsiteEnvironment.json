@@ -1,0 +1,75 @@
+{
+	"id": "e722581d-a95b-43f7-aa3d-0563917fcf0b",
+	"name": "Secondhand Website",
+	"values": [
+		{
+			"key": "base.url",
+			"value": "https://secondhand.binaracademy.org",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "id_seller",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "id_buyer",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "id_product",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "setEmailSeller",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "setEmailBuyer",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "token_siginin",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "setName",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "id_offer",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "sessionTokenSeller",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "sessionTokenBuyer",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2023-12-03T10:52:02.690Z",
+	"_postman_exported_using": "Postman/10.20.7"
+}

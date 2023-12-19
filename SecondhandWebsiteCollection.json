@@ -1,0 +1,1064 @@
+{
+	"info": {
+		"_postman_id": "f5c2bbb6-fb54-4c91-8cb0-07d1937c9a61",
+		"name": "Secondhand Website",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29373333"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Create User - Seller",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Membuat nama acak sebanyak 5 karakter\r",
+									"let name = '';\r",
+									"const characters = 'abcdefghijklmnopqrstuvwxyz';\r",
+									"for (let i = 0; i < 5; i++) {\r",
+									"    name += characters.charAt(Math.floor(Math.random() * characters.length));\r",
+									"}\r",
+									"\r",
+									"// Membuat email acak menggunakan nama acak sebelumnya\r",
+									"let email = name + '@example.com';\r",
+									"\r",
+									"// Menyimpan email acak ke dalam environment variable 'setEmail'\r",
+									"pm.environment.set('setEmailSeller', email);\r",
+									"\r",
+									"console.log(email);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    // Mendapatkan nilai 'email' dari body response\r",
+									"    let responseBody = pm.response.json();\r",
+									"    let emailFromResponse = responseBody.user.email;\r",
+									"\r",
+									"    // Memeriksa apakah respons teks mengandung nilai dari variabel 'setEmail'\r",
+									"    pm.expect(emailFromResponse).to.include(pm.environment.get('setEmailSeller'));\r",
+									"});\r",
+									"\r",
+									"pm.test('Simpan ID dari Body Response ke dalam Variabel Lingkungan', function () {\r",
+									"    // Mendapatkan nilai 'id' dari body response\r",
+									"    let idFromResponse = pm.response.json().user.id;\r",
+									"\r",
+									"    // Memastikan nilai 'id' tidak undefined\r",
+									"    pm.expect(idFromResponse).to.not.be.undefined;\r",
+									"\r",
+									"    // Menyimpan nilai 'id' ke dalam variabel lingkungan 'id'\r",
+									"    pm.environment.set('id_seller', idFromResponse);\r",
+									"    console.log('Nilai ID yang disimpan:', idFromResponse);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"user\": {\r\n    \"name\": \"cici\",\r\n    \"email\": \"{{setEmailSeller}}\",\r\n    \"password\": \"cici123\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base.url}}/users.json",
+							"host": [
+								"{{base.url}}"
+							],
+							"path": [
+								"users.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User - Buyer",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Membuat nama acak sebanyak 5 karakter\r",
+									"let name = '';\r",
+									"const characters = 'abcdefghijklmnopqrstuvwxyz';\r",
+									"for (let i = 0; i < 5; i++) {\r",
+									"    name += characters.charAt(Math.floor(Math.random() * characters.length));\r",
+									"}\r",
+									"\r",
+									"// Membuat email acak menggunakan nama acak sebelumnya\r",
+									"let email = name + '@example.com';\r",
+									"\r",
+									"// Menyimpan email acak ke dalam environment variable 'setEmail'\r",
+									"pm.environment.set('setEmailBuyer', email);\r",
+									"\r",
+									"console.log(email);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    // Mendapatkan nilai 'email' dari body response\r",
+									"    let responseBody = pm.response.json();\r",
+									"    let emailFromResponse = responseBody.user.email;\r",
+									"\r",
+									"    // Memeriksa apakah respons teks mengandung nilai dari variabel 'setEmail'\r",
+									"    pm.expect(emailFromResponse).to.include(pm.environment.get('setEmailBuyer'));\r",
+									"});\r",
+									"\r",
+									"pm.test('Simpan ID dari Body Response ke dalam Variabel Lingkungan', function () {\r",
+									"    // Mendapatkan nilai 'id' dari body response\r",
+									"    let idFromResponse = pm.response.json().user.id;\r",
+									"\r",
+									"    // Memastikan nilai 'id' tidak undefined\r",
+									"    pm.expect(idFromResponse).to.not.be.undefined;\r",
+									"\r",
+									"    // Menyimpan nilai 'id' ke dalam variabel lingkungan 'id'\r",
+									"    pm.environment.set('id_buyer', idFromResponse);\r",
+									"    console.log('Nilai ID yang disimpan:', idFromResponse);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"user\": {\r\n    \"name\": \"ciki\",\r\n    \"email\": \"{{setEmailBuyer}}\",\r\n    \"password\": \"cici123\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base.url}}/users.json",
+							"host": [
+								"{{base.url}}"
+							],
+							"path": [
+								"users.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign In - Seller",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Mengambil dan menyimpan nilai 'token' dari response\", function () {\r",
+									"    // Mendapatkan nilai 'token' dari body response\r",
+									"    let responseBody = pm.response.json();\r",
+									"    let sessionToken = responseBody.session.token;\r",
+									"\r",
+									"    // Menyimpan nilai 'token' ke dalam environment variable 'sessionToken'\r",
+									"    pm.environment.set('sessionTokenSeller', sessionToken);\r",
+									"\r",
+									"    // Menampilkan nilai 'token' yang disimpan ke dalam console Postman\r",
+									"    console.log('Nilai Token yang disimpan:', sessionToken);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"user\": {\r\n    \"email\": \"{{setEmailSeller}}\",\r\n    \"password\": \"cici123\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base.url}}/users/sign_in.json",
+							"host": [
+								"{{base.url}}"
+							],
+							"path": [
+								"users",
+								"sign_in.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign In - Buyer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Mengambil dan menyimpan nilai 'token' dari response\", function () {\r",
+									"    // Mendapatkan nilai 'token' dari body response\r",
+									"    let responseBody = pm.response.json();\r",
+									"    let sessionToken = responseBody.session.token;\r",
+									"\r",
+									"    // Menyimpan nilai 'token' ke dalam environment variable 'sessionToken'\r",
+									"    pm.environment.set('sessionTokenBuyer', sessionToken);\r",
+									"\r",
+									"    // Menampilkan nilai 'token' yang disimpan ke dalam console Postman\r",
+									"    console.log('Nilai Token yang disimpan:', sessionToken);\r",
+									"});\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"user\": {\r\n    \"email\": \"{{setEmailBuyer}}\",\r\n    \"password\": \"cici123\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base.url}}/users/sign_in.json",
+							"host": [
+								"{{base.url}}"
+							],
+							"path": [
+								"users",
+								"sign_in.json"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Profile - Seller",
+			"item": [
+				{
+					"name": "Update Profile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{sessionTokenSeller}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user[name]",
+									"value": "cici",
+									"type": "text"
+								},
+								{
+									"key": "user[phone_number]",
+									"value": "089515521398",
+									"type": "text"
+								},
+								{
+									"key": "user[address]",
+									"value": "bandung",
+									"type": "text"
+								},
+								{
+									"key": "user[city_id]",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "user[avatar]",
+									"type": "file",
+									"src": "2.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base.url}}/profiles.json",
+							"host": [
+								"{{base.url}}"
+							],
+							"path": [
+								"profiles.json"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Profile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 800ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(800);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{sessionTokenSeller}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base.url}}/profiles.json",
+							"host": [
+								"{{base.url}}"
+							],
+							"path": [
+								"profiles.json"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Profile - Buyer",
+			"item": [
+				{
+					"name": "Update Profile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{sessionTokenBuyer}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user[name]",
+									"value": "ciki",
+									"type": "text"
+								},
+								{
+									"key": "user[phone_number]",
+									"value": "089515521390",
+									"type": "text"
+								},
+								{
+									"key": "user[address]",
+									"value": "bali",
+									"type": "text"
+								},
+								{
+									"key": "user[city_id]",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "user[avatar]",
+									"type": "file",
+									"src": "2.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base.url}}/profiles.json",
+							"host": [
+								"{{base.url}}"
+							],
+							"path": [
+								"profiles.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Profile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{sessionTokenBuyer}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{base.url}}/profiles.json",
+							"host": [
+								"{{base.url}}"
+							],
+							"path": [
+								"profiles.json"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "Get All Categories",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 800ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(800);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base.url}}/categories.json",
+							"host": [
+								"{{base.url}}"
+							],
+							"path": [
+								"categories.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Specific Categories",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 800ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(800);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base.url}}/categories/1.json",
+							"host": [
+								"{{base.url}}"
+							],
+							"path": [
+								"categories",
+								"1.json"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Create Product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Simpan ID Product dari Body Response ke dalam Variabel Lingkungan', function () {\r",
+									"    // Mendapatkan nilai 'id' dari body response\r",
+									"    let idFromResponse = pm.response.json().product.id;\r",
+									"\r",
+									"    // Memastikan nilai 'id' tidak undefined\r",
+									"    pm.expect(idFromResponse).to.not.be.undefined;\r",
+									"\r",
+									"    // Menyimpan nilai 'id' ke dalam variabel lingkungan 'id'\r",
+									"    pm.environment.set('id_product', idFromResponse);\r",
+									"    console.log('Nilai ID yang disimpan:', idFromResponse);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{sessionTokenSeller}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "product[name]",
+									"value": "kucing",
+									"type": "text"
+								},
+								{
+									"key": "product[price]",
+									"value": "3000",
+									"type": "text"
+								},
+								{
+									"key": "product[description]",
+									"value": "kucing kampung",
+									"type": "text"
+								},
+								{
+									"key": "product[status]",
+									"value": "published",
+									"type": "text"
+								},
+								{
+									"key": "product[category_id]",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "product[images][]",
+									"type": "file",
+									"src": "2.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base.url}}/products.json?page=1&category_id=1&user_id={{id_seller}}",
+							"host": [
+								"{{base.url}}"
+							],
+							"path": [
+								"products.json"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "category_id",
+									"value": "1"
+								},
+								{
+									"key": "user_id",
+									"value": "{{id_seller}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verifikasi value nama product\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.products[0].name).to.eql(\"kucing\");\r",
+									"});\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{sessionTokenSeller}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base.url}}/products.json?page=1&category_id=1&user_id={{id_seller}}",
+							"host": [
+								"{{base.url}}"
+							],
+							"path": [
+								"products.json"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "category_id",
+									"value": "1"
+								},
+								{
+									"key": "user_id",
+									"value": "{{id_seller}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Specific Product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base.url}}/products/{{id_product}}.json",
+							"host": [
+								"{{base.url}}"
+							],
+							"path": [
+								"products",
+								"{{id_product}}.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Name is a non-empty string\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.product.name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Name should not be empty\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Price is a non-negative number\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData.product.price).to.be.a('number');\r",
+									"    pm.expect(responseData.product.price).to.be.at.least(0);\r",
+									"});\r",
+									"\r",
+									"postman.setNextRequest('Create Offer')"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{sessionTokenSeller}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "product[name]",
+									"value": "kucing",
+									"type": "text"
+								},
+								{
+									"key": "product[price]",
+									"value": "2000",
+									"type": "text"
+								},
+								{
+									"key": "product[description]",
+									"value": "kucing kota",
+									"type": "text"
+								},
+								{
+									"key": "product[status]",
+									"value": "published",
+									"type": "text"
+								},
+								{
+									"key": "product[category_id]",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "product[images][]",
+									"type": "file",
+									"src": "2.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base.url}}/products/{{id_product}}.json",
+							"host": [
+								"{{base.url}}"
+							],
+							"path": [
+								"products",
+								"{{id_product}}.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"postman.setNextRequest('null')"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{sessionTokenSeller}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base.url}}/products/{{id_product}}.json",
+							"host": [
+								"{{base.url}}"
+							],
+							"path": [
+								"products",
+								"{{id_product}}.json"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Offers",
+			"item": [
+				{
+					"name": "Create Offer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Mengambil dan menyimpan nilai 'id offer' dari response\", function () {\r",
+									"    // Mendapatkan nilai 'token' dari body response\r",
+									"    let responseBody = pm.response.json();\r",
+									"    let idOffer = responseBody.offer.id;\r",
+									"\r",
+									"    // Menyimpan nilai 'token' ke dalam environment variable 'idOffer'\r",
+									"    pm.environment.set('id_offer', idOffer);\r",
+									"\r",
+									"    // Menampilkan nilai 'token' yang disimpan ke dalam console Postman\r",
+									"    console.log('Nilai ID Offer:', idOffer);\r",
+									"});\r",
+									"\r",
+									"postman.setNextRequest('Get Created Offer User')"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{sessionTokenBuyer}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"offer\": {\r\n    \"price\": 2000,\r\n    \"to_id\": {{id_seller}},\r\n    \"product_id\": {{id_product}}\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base.url}}/offers.json",
+							"host": [
+								"{{base.url}}"
+							],
+							"path": [
+								"offers.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Created Offer User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"  pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"postman.setNextRequest('Update Offer')"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{sessionTokenSeller}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base.url}}/users/{{id_buyer}}/offers.json",
+							"host": [
+								"{{base.url}}"
+							],
+							"path": [
+								"users",
+								"{{id_buyer}}",
+								"offers.json"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Offer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"postman.setNextRequest('Delete Product')"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{sessionTokenSeller}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"offer\": {\r\n    \"status\": \"accepted\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base.url}}/offers/{{id_offer}}.json",
+							"host": [
+								"{{base.url}}"
+							],
+							"path": [
+								"offers",
+								"{{id_offer}}.json"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
